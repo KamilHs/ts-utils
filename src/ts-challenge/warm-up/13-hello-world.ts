@@ -1,0 +1,4 @@
+// expected to be string
+type HelloWorld = string;
+
+export {};
