@@ -12,3 +12,5 @@ interface Dog {
 }
 
 type MyDogType = LookUp<Cat | Dog, 'dog'>; // expected to be `Dog`
+
+export {};
