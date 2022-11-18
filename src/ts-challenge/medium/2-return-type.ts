@@ -5,3 +5,5 @@ const fn = (v: boolean) => {
 };
 
 type a = MyReturnType<typeof fn>; // should be "1 | 2"
+
+export {};
