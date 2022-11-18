@@ -21,3 +21,4 @@ type Expected = {
 };
 
 type Todo = DeepReadonly<X>; // should be same as `Expected`
+export {};
