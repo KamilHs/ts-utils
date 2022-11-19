@@ -11,3 +11,5 @@ type Length<T extends any[]> = T['length']
 
 type teslaLength = Length<tesla>; // expected 4
 type spaceXLength = Length<spaceX>; // expected 5
+
+export {};
