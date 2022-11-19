@@ -27,3 +27,5 @@ type R2 = PercentageParser<PString2>; // expected ["+", "85", "%"]
 type R3 = PercentageParser<PString3>; // expected ["-", "85", "%"]
 type R4 = PercentageParser<PString4>; // expected ["", "85", "%"]
 type R5 = PercentageParser<PString5>; // expected ["", "85", ""]
+
+export {};
