@@ -13,3 +13,5 @@ interface User {
 }
 
 type UserRequiredName = RequiredByKeys<User, 'name'>; // { name: string; age?: number; address?: string }
+
+export {};
