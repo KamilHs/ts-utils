@@ -18,25 +18,21 @@ type LastCharacter<T extends string> = T extends `${infer First}${infer Last}`
   : T;
 
 type _Increment<
-  N extends string,
-  C extends 0 | 1 = 0,
-  R extends string = '',
-> = N extends ''
-  ? C extends 0
-    ? R
-    : `${C}${R}`
-  : N extends `${infer Rest extends string}`
-  ? C extends 0
-    ? `${Rest}${R}`
-    : LastCharacter<Rest> extends `${infer LD extends number}`
-    ? IncrementMap[LD] extends infer Incremented extends number
-      ? Rest extends `${infer NewRest}${LD}`
-        ? Incremented extends keyof LastDigitMap
-          ? N extends `${infer NewN extends string}${LD}`
-            ? _Increment<NewN, 1, `${LastDigitMap[Incremented]}${R}`>
-            : `${R}`
-          : `${NewRest}${Incremented}${R}`
-        : never
+  Number extends string,
+  Carry extends 0 | 1 = 0,
+  Result extends string = '',
+> = Number extends ''
+  ? Carry extends 0
+    ? Result
+    : `${Carry}${Result}`
+  : Carry extends 0
+  ? `${Number}${Result}`
+  : LastCharacter<Number> extends `${infer LastDigit extends number}`
+  ? IncrementMap[LastDigit] extends infer Incremented extends number
+    ? Number extends `${infer Rest}${LastDigit}`
+      ? Incremented extends keyof LastDigitMap
+        ? _Increment<Rest, 1, `${LastDigitMap[Incremented]}${Result}`>
+        : `${Rest}${Incremented}${Result}`
       : never
     : never
   : never;
@@ -44,11 +40,14 @@ type _Increment<
 type Increment<T extends number> = _Increment<
   `${T}`,
   1
-> extends `${infer R extends number}`
-  ? R
+> extends `${infer Result extends number}`
+  ? Result
   : never;
 
-type S = Increment<98999989999999988>;
+type Case1 = Increment<1>;
+type Case2 = Increment<9>;
+type Case3 = Increment<999>;
+type Case4 = Increment<1899999999999999>;
 
 type SumMap = {
   '0|0': 0;
@@ -252,5 +251,3 @@ type SumMap = {
   '9|9': 18;
   '9|9|1': 19;
 };
-
-export {};
