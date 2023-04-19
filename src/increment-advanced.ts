@@ -17,8 +17,6 @@ export type _Increment<
   ? Carry extends 0
     ? Result
     : `${Carry}${Result}`
-  : Carry extends 0
-  ? `${Number}${Result}`
   : LastCharacter<Number> extends `${infer LastDigit extends number}`
   ? IncrementMap[LastDigit] extends infer Incremented extends number
     ? Number extends `${infer Rest}${LastDigit}`
