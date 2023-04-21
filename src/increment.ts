@@ -1,3 +1,5 @@
+import { _Decrement } from './decrement';
+
 type IncrementMap = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 type LastDigitMap = {
   10: 0;
@@ -27,10 +29,15 @@ export type _Increment<
     : never
   : never;
 
-export type Increment<T extends number> = _Increment<
-  `${T}`,
-  1
-> extends `${infer Result extends number}`
+export type Increment<T extends number> = (
+  `${T}` extends `-${infer PositiveT extends string}`
+    ? _Decrement<PositiveT> extends infer NegativeIncrementResult extends string
+      ? NegativeIncrementResult extends '0'
+        ? NegativeIncrementResult
+        : `-${NegativeIncrementResult}`
+      : never
+    : _Increment<`${T}`, 1>
+) extends `${infer Result extends number}`
   ? Result
   : never;
 
@@ -38,3 +45,6 @@ type Case1 = Increment<1>;
 type Case2 = Increment<9>;
 type Case3 = Increment<999>;
 type Case4 = Increment<1899999999999999>;
+type Case5 = Increment<-1000>;
+type Case6 = Increment<-1000000000>;
+type Case7 = Increment<-1>;

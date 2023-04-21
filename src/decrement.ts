@@ -1,3 +1,5 @@
+import { _Increment } from './increment';
+
 type DecrementMap = [-1, 0, 1, 2, 3, 4, 5, 6, 7, 8];
 type NegativeCarryMap = {
   '-1': 9;
@@ -30,8 +32,22 @@ export type _Decrement<
     : never
   : never;
 
-export type Decrement<T extends number> =
-  _Decrement<`${T}`> extends `${infer Result extends number}` ? Result : never;
+type _DecrementNegativeOrZero<T extends number> =
+  _Increment<`${T}`> extends infer PositiveDecrementResult extends string
+    ? PositiveDecrementResult extends '0'
+      ? PositiveDecrementResult
+      : `-${PositiveDecrementResult}`
+    : never;
+
+export type Decrement<T extends number> = (
+  `${T}` extends `-${infer PositiveT extends number}`
+    ? _DecrementNegativeOrZero<PositiveT>
+    : T extends 0
+    ? _DecrementNegativeOrZero<T>
+    : _Decrement<`${T}`>
+) extends `${infer Result extends number}`
+  ? Result
+  : never;
 
 type Case1 = Decrement<1>;
 type Case2 = Decrement<10>;
@@ -46,7 +62,7 @@ type Case10 = Decrement<108>;
 type Case11 = Decrement<109>;
 type Case12 = Decrement<1000>;
 type Case13 = Decrement<10000000000>;
-
-1000;
-10;
-09;
+type Case14 = Decrement<0>;
+type Case15 = Decrement<-1>;
+type Case16 = Decrement<-999>;
+type Case17 = Decrement<-99999999>;
