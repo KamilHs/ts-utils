@@ -32,7 +32,7 @@ export type _Decrement<
     : never
   : never;
 
-type _DecrementNegativeOrZero<T extends number> =
+export type _DecrementNegativeOrZero<T extends number> =
   _Increment<`${T}`> extends infer PositiveDecrementResult extends string
     ? PositiveDecrementResult extends '0'
       ? PositiveDecrementResult
