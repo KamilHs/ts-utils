@@ -109,19 +109,19 @@ type Sub<Num1 extends number, Num2 extends number> = (
   ? Result
   : never;
 
-type Case1 = Sub<10, 9>;
-type Case2 = Sub<9, 1>;
-type Case3 = Sub<100, 29>;
-type Case4 = Sub<1000, 999>;
-type Case5 = Sub<1000, 0>;
-type Case6 = Sub<1000, 1>;
-type Case7 = Sub<1200, 12>;
-type Case8 = Sub<111111111111111, 111>;
-type Case9 = Sub<111, 111>;
-type Case10 = Sub<100000, 99998>;
-type Case11 = Sub<9, -1>;
-type Case12 = Sub<99, -1>;
-type Case13 = Sub<-9, 1>;
-type Case14 = Sub<-99, 1>;
+const case1: Sub<10, 9> = 1;
+const case2: Sub<9, 1> = 8;
+const case3: Sub<100, 29> = 71;
+const case4: Sub<1000, 999> = 1;
+const case5: Sub<1000, 0> = 1000;
+const case6: Sub<1000, 1> = 999;
+const case7: Sub<1200, 12> = 1188;
+const case8: Sub<111111111111111, 111> = 111111111111000;
+const case9: Sub<111, 111> = 0;
+const case10: Sub<100000, 99998> = 2;
+const case11: Sub<9, -1> = 10;
+const case12: Sub<99, -1> = 100;
+const case13: Sub<-9, 1> = -10;
+const case14: Sub<-99, 1> = -100;
 
 export {};

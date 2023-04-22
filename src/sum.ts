@@ -88,19 +88,19 @@ export type Sum<Num1 extends number, Num2 extends number> = (
   ? Result
   : never;
 
-type Case1 = Sum<1, 9>;
-type Case2 = Sum<9, 1>;
-type Case3 = Sum<999, 0>;
-type Case4 = Sum<0, 999>;
-type Case5 = Sum<1, 999>;
-type Case6 = Sum<999, 1>;
-type Case7 = Sum<1188, 12>;
-type Case8 = Sum<12, 1188>;
-type Case9 = Sum<1988, 12>;
-type Case10 = Sum<12, 1988>;
-type Case11 = Sum<111111111111111, 11>;
-type Case12 = Sum<11, 111111111111111>;
-type Case13 = Sum<-1, -1>;
-type Case14 = Sum<-9999, -1>;
+const case1: Sum<1, 9> = 10;
+const case2: Sum<9, 1> = 10;
+const case3: Sum<999, 0> = 999;
+const case4: Sum<0, 999> = 999;
+const case5: Sum<1, 999> = 1000;
+const case6: Sum<999, 1> = 1000;
+const case7: Sum<1188, 12> = 1200;
+const case8: Sum<12, 1188> = 1200;
+const case9: Sum<1988, 12> = 2000;
+const case10: Sum<12, 1988> = 2000;
+const case11: Sum<111111111111111, 11> = 111111111111122;
+const case12: Sum<11, 111111111111111> = 111111111111122;
+const case13: Sum<-1, -1> = -2;
+const case14: Sum<-9999, -1> = -10000;
 
 export {};

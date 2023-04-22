@@ -41,10 +41,10 @@ export type Increment<T extends number> = (
   ? Result
   : never;
 
-type Case1 = Increment<1>;
-type Case2 = Increment<9>;
-type Case3 = Increment<999>;
-type Case4 = Increment<1899999999999999>;
-type Case5 = Increment<-1000>;
-type Case6 = Increment<-1000000000>;
-type Case7 = Increment<-1>;
+const case1: Increment<1> = 2;
+const case2: Increment<9> = 10;
+const case3: Increment<999> = 1000;
+const case4: Increment<1899999999999999> = 1900000000000000;
+const case5: Increment<-1000> = -999;
+const case6: Increment<-1000000000> = -999999999;
+const case7: Increment<-1> = 0;
