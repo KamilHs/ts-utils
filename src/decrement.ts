@@ -1,4 +1,5 @@
 import { _Increment } from './increment';
+import { GetNumberPositivePart, isNegativeNumber } from './number';
 
 type DecrementMap = [-1, 0, 1, 2, 3, 4, 5, 6, 7, 8];
 type NegativeCarryMap = {
@@ -40,8 +41,8 @@ export type _DecrementNegativeOrZero<T extends number> =
     : never;
 
 export type Decrement<T extends number> = (
-  `${T}` extends `-${infer PositiveT extends number}`
-    ? _DecrementNegativeOrZero<PositiveT>
+  isNegativeNumber<T> extends true
+    ? _DecrementNegativeOrZero<GetNumberPositivePart<T>>
     : T extends 0
     ? _DecrementNegativeOrZero<T>
     : _Decrement<`${T}`>

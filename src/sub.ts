@@ -1,4 +1,7 @@
 import { _Decrement } from './decrement';
+import { GetNumberPositivePart } from './number';
+import { isNegativeNumber } from './number';
+import { Sum, _Sum } from './sum';
 
 type DecrementMap = {
   '-9': -10;
@@ -94,9 +97,15 @@ type _RemoveLeadingZeros<T extends string> =
       : _RemoveLeadingZeros<Rest>
     : T;
 
-type Sub<Num1 extends number, Num2 extends number> = _RemoveLeadingZeros<
-  _Sub<`${Num1}`, `${Num2}`>
-> extends `${infer Result extends number}`
+type Sub<Num1 extends number, Num2 extends number> = (
+  isNegativeNumber<Num1> extends true
+    ? isNegativeNumber<Num2> extends true
+      ? never
+      : `-${Sum<GetNumberPositivePart<Num1>, Num2>}`
+    : isNegativeNumber<Num2> extends true
+    ? `${Sum<Num1, GetNumberPositivePart<Num2>>}`
+    : _RemoveLeadingZeros<_Sub<`${Num1}`, `${Num2}`>>
+) extends `${infer Result extends number}`
   ? Result
   : never;
 
@@ -110,5 +119,9 @@ type Case7 = Sub<1200, 12>;
 type Case8 = Sub<111111111111111, 111>;
 type Case9 = Sub<111, 111>;
 type Case10 = Sub<100000, 99998>;
+type Case11 = Sub<9, -1>;
+type Case12 = Sub<99, -1>;
+type Case13 = Sub<-9, 1>;
+type Case14 = Sub<-99, 1>;
 
 export {};

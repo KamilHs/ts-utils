@@ -1,4 +1,5 @@
-import { _Increment } from "./increment";
+import { _Increment } from './increment';
+import { GetNumberPositivePart, isNegativeNumber } from './number';
 
 type IncrementMap = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19];
 
@@ -34,7 +35,7 @@ type LastCharacter<T extends string> = T extends `${infer First}${infer Last}`
     : LastCharacter<Last>
   : T;
 
-type _Sum<
+export type _Sum<
   Num1 extends string,
   Num2 extends string,
   Carry extends 0 | 1 = 0,
@@ -72,10 +73,18 @@ type _Sum<
     : never
   : never;
 
-type Sum<Num1 extends number, Num2 extends number> = _Sum<
-  `${Num1}`,
-  `${Num2}`
-> extends `${infer Result extends number}`
+export type Sum<Num1 extends number, Num2 extends number> = (
+  isNegativeNumber<Num1> extends true
+    ? isNegativeNumber<Num2> extends true
+      ? `-${_Sum<
+          `${GetNumberPositivePart<Num1>}`,
+          `${GetNumberPositivePart<Num2>}`
+        >}`
+      : never
+    : isNegativeNumber<Num2> extends true
+    ? never
+    : _Sum<`${Num1}`, `${Num2}`>
+) extends `${infer Result extends number}`
   ? Result
   : never;
 
@@ -91,5 +100,7 @@ type Case9 = Sum<1988, 12>;
 type Case10 = Sum<12, 1988>;
 type Case11 = Sum<111111111111111, 11>;
 type Case12 = Sum<11, 111111111111111>;
+type Case13 = Sum<-1, -1>;
+type Case14 = Sum<-9999, -1>;
 
 export {};
